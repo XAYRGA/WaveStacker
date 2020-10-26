@@ -269,7 +269,8 @@ namespace WaveStacker
                 }
                 awTemp.Write(awBuff, 0, awBuff.Length);
                 wsysWrite.BaseStream.Position = originalWave.mOffset;
-                wsysWrite.Seek(0x08, SeekOrigin.Current);
+                wsysWrite.Seek(0x04, SeekOrigin.Current);
+                wsysWrite.Write((float)originalWave.sampleRate);
                 wsysWrite.Write(awOffset);
                 wsysWrite.Write(awBuff.Length);
                 originalWave.wsys_start = awOffset; // update in-memory copies
