@@ -78,8 +78,12 @@ namespace WaveStacker
         private void openWSYSToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (root.currentWSYS != null)
+            {
                 if (MessageBox.Show("You currently have an open WSYS\nPress OK to continue, or Cancel to stop.", "Warning", MessageBoxButtons.OKCancel) != DialogResult.OK)
                     return;
+                root.currentWSYSStream.Close();
+            }
+
             var ofd = new OpenFileDialog();
             ofd.Filter = "WaveSystem files(*.wsy;*.wsys;*.ws)|*.wsy;*.wsys;*.ws";
             var res = ofd.ShowDialog();
@@ -98,6 +102,7 @@ namespace WaveStacker
             root.rebuildMask = new bool[wsys.Groups.Length]; // all initialize to false
             root.currentWSYSStream = fHnd;
             rebuildData = new Dictionary<int, Dictionary<int, byte[]>>();
+
         }
 
         private void MainMenu_Load(object sender, EventArgs e)
